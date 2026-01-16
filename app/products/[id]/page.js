@@ -3,10 +3,8 @@ import Link from "next/link";
 import { products } from "../../data/mockProducts";
 
 export default async function ProductDetailsPage({ params }) {
-  // Unwrap params
-  const { id } = await params; // <--- await here
+  const { id } = await params;
 
-  // Find the bike by ID
   const bike = products.find((p) => p.id === id);
 
   if (!bike) {
@@ -62,12 +60,23 @@ export default async function ProductDetailsPage({ params }) {
 
           <p className="mt-4 text-teal-400 text-xl font-bold">{bike.price}</p>
 
-          <Link
-            href="/products"
-            className="mt-6 bg-teal-600 w-fit px-6 py-3 rounded hover:bg-teal-700 transition"
-          >
-            Back to Products
-          </Link>
+          {/* Buttons */}
+          <div className="mt-6 flex gap-4 flex-wrap">
+            <Link
+              href="/products"
+              className="bg-teal-600 w-fit px-6 py-3 rounded hover:bg-teal-700 transition"
+            >
+              Back to Products
+            </Link>
+            <Link
+              href="https://www.bikebd.com/ev"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-red-800 w-fit px-6 py-3 rounded hover:bg-orange-700 transition"
+            >
+              Buy Now
+            </Link>
+          </div>
         </div>
       </div>
     </section>

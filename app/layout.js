@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { AuthProvider } from "../app/context/AuthContext"; // ✅ import context
 
 export const metadata = {
   title: "E-Bike App",
@@ -20,14 +21,15 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="font-montserrat bg-gradient-to-b from-gray-50 via-gray-100 to-gray-50 text-gray-900">
-        {/* Navbar */}
-        <Navbar />
+        {/* Wrap Navbar + children with AuthProvider */}
+        <AuthProvider>
+          <Navbar />
 
-        {/* Main content */}
-        <main className="min-h-screen">{children}</main>
+          {/* Main content */}
+          <main className="min-h-screen">{children}</main>
 
-        {/* Footer */}
-        <Footer />
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );

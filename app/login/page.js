@@ -1,28 +1,47 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
+import { useAuth } from "../context/AuthContext"; // Auth context
+import toast, { Toaster } from "react-hot-toast"; // Toast notifications
 
 export default function LoginPage() {
   const router = useRouter();
+  const { isLoggedIn, login } = useAuth(); // login function from context
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
   // Hardcoded credentials
-  const MOCK_EMAIL = "test@example.com";
-  const MOCK_PASSWORD = "password123";
+  const MOCK_EMAIL = "user@example.com";
+  const MOCK_PASSWORD = "Zeutex@2026";
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/"); // redirect to home
+    }
+  }, [isLoggedIn, router]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (email === MOCK_EMAIL && password === MOCK_PASSWORD) {
-      // Mark user as logged in
-      Cookies.set("auth", "true", { expires: 1 });
-      router.push("/products"); // Redirect to Products page
+      // ✅ Mark user as logged in
+      login();
+
+      // ✅ Show success toast (3 seconds)
+      toast.success("Login successful!", { duration: 3000 });
+
+      // Redirect after short delay so user sees toast
+      setTimeout(() => {
+        router.push("/");
+      }, 300); // small delay, toast still visible
     } else {
       setError("Invalid email or password");
+
+      // ✅ Show error toast (3 seconds)
+      toast.error("Invalid email or password", { duration: 3000 });
     }
   };
 
@@ -30,6 +49,9 @@ export default function LoginPage() {
     <section className="relative w-full h-screen overflow-hidden bg-black">
       {/* Background overlay */}
       <div className="absolute w-full h-full bg-gray-900"></div>
+
+      {/* Toast container */}
+      <Toaster position="top-right" reverseOrder={false} />
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
         <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg mb-6">
@@ -83,7 +105,7 @@ export default function LoginPage() {
 
         {/* Demo credentials info */}
         <p className="mt-4 text-sm text-gray-300">
-          Use <strong>test@example.com / password123</strong>
+          Use <strong>user@example.com / Zeutex@2026</strong>
         </p>
       </div>
     </section>
