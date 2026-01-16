@@ -27,47 +27,32 @@ export default function LoginPage() {
     e.preventDefault();
 
     if (email === MOCK_EMAIL && password === MOCK_PASSWORD) {
-      // ✅ Mark user as logged in
       login();
-
-      // ✅ Show success toast (3 seconds)
       toast.success("Login successful!", { duration: 3000 });
-
-      // Redirect after short delay so user sees toast
-      setTimeout(() => {
-        router.push("/");
-      }, 300); // small delay, toast still visible
+      setTimeout(() => router.push("/"), 300);
     } else {
       setError("Invalid email or password");
-
-      // ✅ Show error toast (3 seconds)
       toast.error("Invalid email or password", { duration: 3000 });
     }
   };
 
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-black">
-      {/* Background overlay */}
-      <div className="absolute w-full h-full bg-gray-900"></div>
-
+    <section className="relative w-full h-screen overflow-hidden bg-gradient-to-br from-gray-800 via-black to-gray-800 flex items-center justify-center px-4">
       {/* Toast container */}
       <Toaster position="top-right" reverseOrder={false} />
 
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-white drop-shadow-lg mb-6">
+      {/* Login Card */}
+      <div className="relative z-10 w-full max-w-md bg-gray-900 backdrop-blur-md rounded-2xl shadow-2xl p-8 flex flex-col gap-6">
+        <h1 className="text-3xl md:text-3xl font-bold text-white drop-shadow-lg text-center">
           Login to Zeutex
         </h1>
 
         {/* Error message */}
-        {error && <p className="text-red-400 mb-4">{error}</p>}
+        {error && <p className="text-red-500 text-center">{error}</p>}
 
-        {/* Login form */}
-        <form
-          onSubmit={handleSubmit}
-          className="flex flex-col gap-4 bg-black/50 p-8 rounded-lg shadow-lg w-full max-w-md"
-        >
-          {/* Email Field */}
-          <div className="flex flex-col text-left">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          {/* Email */}
+          <div className="flex flex-col">
             <label htmlFor="email" className="text-white mb-1 font-medium">
               Email
             </label>
@@ -78,12 +63,12 @@ export default function LoginPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="p-3 rounded-lg border border-gray-300 bg-white text-black focus:outline-none focus:ring-2 focus:ring-teal-500 transition"
             />
           </div>
 
-          {/* Password Field */}
-          <div className="flex flex-col text-left">
+          {/* Password */}
+          <div className="flex flex-col">
             <label htmlFor="password" className="text-white mb-1 font-medium">
               Password
             </label>
@@ -94,16 +79,16 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="p-3 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
+              className="p-3 rounded-lg border border-gray-300 bg-white text-black focus:outline-none focus:ring-2 focus:ring-teal-500 transition"
             />
           </div>
 
-          <button className="bg-teal-600 text-white py-3 rounded font-semibold hover:bg-teal-700 transition">
+          <button className="bg-gradient-to-r from-teal-500 to-teal-600 text-white py-3 rounded-xl font-semibold shadow-md hover:shadow-lg hover:from-teal-600 hover:to-teal-700 transition mt-2">
             Login
           </button>
         </form>
 
-        
+    
       </div>
     </section>
   );
