@@ -103,10 +103,7 @@ export default function LoginPage() {
           </button>
         </form>
 
-        {/* Demo credentials info */}
-        <p className="mt-4 text-sm text-gray-300">
-          Use <strong>user@example.com / Zeutex@2026</strong>
-        </p>
+        
       </div>
     </section>
   );
