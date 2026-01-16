@@ -3,18 +3,15 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 
-export default function Hero() {
-  // ❌ remove <HTMLVideoElement>
+export default function Hero({ id }) {
   const videoRef = useRef(null);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    // Start at 10 seconds
     video.currentTime = 10;
 
-    // Loop between 10s - 20s
     const handleTimeUpdate = () => {
       if (video.currentTime >= 30) {
         video.currentTime = 10;
@@ -23,30 +20,24 @@ export default function Hero() {
     };
 
     video.addEventListener("timeupdate", handleTimeUpdate);
-
-    return () => {
-      video.removeEventListener("timeupdate", handleTimeUpdate);
-    };
+    return () => video.removeEventListener("timeupdate", handleTimeUpdate);
   }, []);
 
   return (
-    <section className="relative w-full h-screen overflow-hidden">
+    <section id={id} className="relative w-full h-screen overflow-hidden">
       {/* Hero Video */}
       <video
-        ref={videoRef} // ✅ correct ref
+        ref={videoRef}
         className="absolute w-full h-full object-cover"
-        src="/hero.mp4" // ✅ public folder
+        src="/hero.mp4"
         autoPlay
         muted
-        loop={false} // manual looping
+        loop={false}
         playsInline
         poster="/images/hero-fallback.jpg"
       />
-
-      {/* Overlay */}
       <div className="absolute w-full h-full bg-black/40"></div>
 
-      {/* Hero Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
         <h1 className="text-4xl md:text-6xl font-bold text-white drop-shadow-lg">
           Ride Smart. Ride Zeutex.
@@ -55,13 +46,9 @@ export default function Hero() {
           Experience the future of e-bikes with intelligent mobility, comfort, and speed.
         </p>
         <div className="mt-6 flex gap-4 flex-wrap justify-center">
-      <Link
-  href="/schedule-ride"
-  className="btn btn-primary btn-lg px-8 py-3"
->
-  Book a Ride
-</Link>
-
+          <Link href="/schedule-ride" className="btn btn-primary btn-lg px-8 py-3">
+            Book a Ride
+          </Link>
           <Link
             href="/products"
             className="btn btn-outline btn-lg px-8 py-3 text-white border-white hover:bg-white hover:text-black"

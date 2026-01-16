@@ -3,11 +3,10 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 
-export default function AboutSection() {
+export default function AboutSection({ id }) {
   return (
-    <section className="bg-gray-900 py-20 px-4 lg:px-16 text-white overflow-hidden">
+    <section id={id} className="bg-gray-900 py-20 px-4 lg:px-16 text-white overflow-hidden">
       <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-
         {/* Image */}
         <motion.div
           initial={{ opacity: 0, x: -50, scale: 0.95 }}
@@ -17,13 +16,12 @@ export default function AboutSection() {
           className="relative h-72 md:h-96 w-full rounded-2xl overflow-hidden shadow-2xl"
         >
           <Image
-            src="/img50.jpg" // Replace with actual image
+            src="/img50.jpg"
             alt="About Zeutex Electric Bikes"
             fill
             className="object-cover"
             priority
           />
-          {/* Optional subtle overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent rounded-2xl" />
         </motion.div>
 
