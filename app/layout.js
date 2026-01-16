@@ -1,7 +1,9 @@
 import "../styles/globals.css";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+
 import { AuthProvider } from "../app/context/AuthContext"; // ✅ import context
+
+import Navbar from "@/Components/Navbar";
+import Footer from "@/Components/Footer";
 
 export const metadata = {
   title: "E-Bike App",
