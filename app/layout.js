@@ -1,7 +1,6 @@
 import "../styles/globals.css";
 import Navbar from "../components/Navbar";
-
-import Footer from './../Components/Footer';
+import Footer from "../components/Footer";
 
 export const metadata = {
   title: "E-Bike App",
@@ -11,9 +10,23 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="light">
-      <body className="bg-gray-50 text-gray-900">
+      <head>
+        {/* Google Fonts */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="font-montserrat bg-gradient-to-b from-gray-50 via-gray-100 to-gray-50 text-gray-900">
+        {/* Navbar */}
         <Navbar />
-        <main>{children}</main>
+
+        {/* Main content */}
+        <main className="min-h-screen">{children}</main>
+
+        {/* Footer */}
         <Footer />
       </body>
     </html>
