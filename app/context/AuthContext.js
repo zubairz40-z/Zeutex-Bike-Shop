@@ -1,34 +1,44 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect } from "react";
-import Cookies from "js-cookie";
+import { createContext, useContext, useEffect, useState } from "react";
+import { auth } from "../firebase/firebase";
+import { 
+  onAuthStateChanged, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  signOut 
+} from "firebase/auth";
 
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  // Check cookie on mount
+  // Listen for auth changes
   useEffect(() => {
-    const auth = Cookies.get("auth");
-    setIsLoggedIn(!!auth);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+    });
+    return unsubscribe;
   }, []);
 
-  const login = () => {
-    Cookies.set("auth", "true", { expires: 1 });
-    setIsLoggedIn(true);
-  };
+  // Login function
+  const login = (email, password) => signInWithEmailAndPassword(auth, email, password);
 
-  const logout = () => {
-    Cookies.remove("auth");
-    setIsLoggedIn(false);
-  };
+  // Signup function
+  const signup = (email, password) => createUserWithEmailAndPassword(auth, email, password);
+
+  // Logout function
+  const logout = () => signOut(auth);
 
   return (
-    <AuthContext.Provider value={{ isLoggedIn, login, logout }}>
+    <AuthContext.Provider value={{ user, login, signup, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
+// Custom hook for easier access
 export const useAuth = () => useContext(AuthContext);
