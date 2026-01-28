@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { motion, useInView } from "framer-motion";
@@ -59,12 +60,13 @@ const bikes = [
 ];
 
 export default function ExploreProducts() {
+  const router = useRouter();
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   const sectionRef = useRef(null);
   const [swiperReady, setSwiperReady] = useState(false);
 
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" }); // triggers when section is near viewport
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   useEffect(() => setSwiperReady(true), []);
 
@@ -113,7 +115,7 @@ export default function ExploreProducts() {
                   <motion.div
                     variants={leftVariants}
                     initial="hidden"
-                    animate={isInView ? "visible" : "hidden"} // animate only when in view
+                    animate={isInView ? "visible" : "hidden"}
                     className="flex flex-col justify-center space-y-6 px-4 md:px-0 z-20"
                   >
                     <motion.h3
@@ -156,7 +158,10 @@ export default function ExploreProducts() {
                       transition={{ delay: 0.7, duration: 0.8, type: "spring" }}
                       className="flex flex-wrap gap-4 mt-6 z-20"
                     >
-                      <button className="px-6 py-3 rounded-lg bg-gradient-to-r from-cyan-600 to-teal-600 text-black font-semibold shadow-lg hover:scale-110 hover:shadow-xl transition-transform duration-300">
+                      <button
+                        onClick={() => router.push("/products")}
+                        className="px-6 py-3 rounded-lg bg-gradient-to-r from-cyan-600 to-teal-600 text-black font-semibold shadow-lg hover:scale-110 hover:shadow-xl transition-transform duration-300"
+                      >
                         View Details
                       </button>
                       <button className="px-6 py-3 rounded-lg border border-cyan-500 hover:bg-cyan-500 hover:text-white transition-all duration-300 shadow hover:shadow-lg">
