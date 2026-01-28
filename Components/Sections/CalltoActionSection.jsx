@@ -49,7 +49,7 @@ export default function FAQCTASection({ id }) {
             <div className="flex flex-col md:flex-row gap-4 mt-4">
               <Link href="/book-test-ride" className="px-6 py-3 rounded-lg bg-cyan-400 text-black font-semibold hover:bg-teal-500 transition">Book Test Ride</Link>
               <Link href="/contact-dealer" className="px-6 py-3 rounded-lg bg-cyan-400 text-black font-semibold hover:bg-teal-500 transition">Contact Dealer</Link>
-              <Link href="/emi-plans" className="px-6 py-3 rounded-lg bg-cyan-400 text-black font-semibold hover:bg-teal-500 transition">Explore EMI Plans</Link>
+              <Link href="/explore-emi" className="px-6 py-3 rounded-lg bg-cyan-400 text-black font-semibold hover:bg-teal-500 transition">Explore EMI Plans</Link>
             </div>
           </div>
         </div>
