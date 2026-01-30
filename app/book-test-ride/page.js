@@ -50,7 +50,7 @@ export default function BookTestRidePage() {
   const selectedBike = products.find((b) => b.id === form.bike);
 
   return (
-    <section className="relative min-h-screen bg-gradient-to-br from-gray-100 via-gray-50 to-white py-20 px-4 lg:px-16 overflow-hidden">
+    <section className="relative min-h-screen bg-gradient-to-br from-gray-900 via-gray-600 to-white py-20 px-4 lg:px-16 overflow-hidden">
       {/* Soft Background Glows */}
       <div className="absolute -top-40 -left-40 w-96 h-96 bg-teal-400/25 blur-3xl rounded-full" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-indigo-400/20 blur-3xl rounded-full" />
