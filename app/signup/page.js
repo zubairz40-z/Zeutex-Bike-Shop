@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { GoogleAuthProvider, signInWithPopup, updateProfile } from "firebase/auth";
 import { auth } from "../firebase/firebase";
+import toast, { Toaster } from "react-hot-toast"; // react-hot-toast
 
 export default function SignupPage() {
   const { signup } = useAuth();
@@ -27,10 +28,31 @@ export default function SignupPage() {
           photoURL: imageUrl || null,
         });
       }
-      alert("Signup successful!");
+      toast.success("Signup successful!", {
+        position: "top-center",
+        style: {
+          background: "#059669", // teal-600
+          color: "#fff",
+          fontWeight: "bold",
+          padding: "16px",
+          borderRadius: "12px",
+          fontSize: "16px",
+        },
+      });
       setName(""); setEmail(""); setPassword(""); setImageUrl("");
     } catch (err) {
       setError(err.message);
+      toast.error(err.message, {
+        position: "top-center",
+        style: {
+          background: "#dc2626", // red-600
+          color: "#fff",
+          fontWeight: "bold",
+          padding: "16px",
+          borderRadius: "12px",
+          fontSize: "16px",
+        },
+      });
     }
     setLoading(false);
   };
@@ -40,14 +62,38 @@ export default function SignupPage() {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
-      alert("Logged in with Google!");
+      toast.success("Signed up with Google!", {
+        position: "top-center",
+        style: {
+          background: "#059669",
+          color: "#fff",
+          fontWeight: "bold",
+          padding: "16px",
+          borderRadius: "12px",
+          fontSize: "16px",
+        },
+      });
     } catch (err) {
       setError(err.message);
+      toast.error(err.message, {
+        position: "top-center",
+        style: {
+          background: "#dc2626",
+          color: "#fff",
+          fontWeight: "bold",
+          padding: "16px",
+          borderRadius: "12px",
+          fontSize: "16px",
+        },
+      });
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 px-4">
+      {/* Toast container */}
+      <Toaster position="top-center" reverseOrder={false} />
+
       <div className="w-full max-w-md bg-gray-800 rounded-3xl shadow-2xl p-10 text-white">
         <h1 className="text-3xl font-extrabold mb-6 text-teal-400 text-center">
           Create Account

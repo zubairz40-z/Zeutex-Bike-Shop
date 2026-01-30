@@ -164,7 +164,11 @@ export default function ExploreProducts() {
                       >
                         View Details
                       </button>
-                      <button className="px-6 py-3 rounded-lg border border-cyan-500 hover:bg-cyan-500 hover:text-white transition-all duration-300 shadow hover:shadow-lg">
+
+                      <button
+                        onClick={() => router.push("/book-test-ride")} // navigates here
+                        className="px-6 py-3 rounded-lg border border-cyan-500 hover:bg-cyan-500 hover:text-white transition-all duration-300 shadow hover:shadow-lg"
+                      >
                         Schedule a Ride
                       </button>
                     </motion.div>

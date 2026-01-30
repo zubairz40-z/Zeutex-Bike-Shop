@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast"; // import react-hot-toast
 
 export default function AddItemPage() {
   const [form, setForm] = useState({
@@ -21,8 +22,21 @@ export default function AddItemPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Trade Request Submitted:", form);
-    alert("Trade request submitted successfully!");
 
+    // Success toast notification
+    toast.success("Trade request submitted successfully!", {
+      position: "top-center",
+      style: {
+        background: "#059669", // teal-600
+        color: "#fff",
+        fontWeight: "bold",
+        padding: "16px",
+        borderRadius: "12px",
+        fontSize: "16px",
+      },
+    });
+
+    // Reset form
     setForm({
       oldBikeName: "",
       oldBikeModel: "",
@@ -37,6 +51,9 @@ export default function AddItemPage() {
 
   return (
     <div className="min-h-screen bg-gray-900 flex items-center justify-center px-4 py-20">
+      {/* Toast container */}
+      <Toaster position="top-center" reverseOrder={false} />
+
       <div className="w-full max-w-2xl bg-gray-800 rounded-3xl shadow-2xl p-10 text-white">
         <h1 className="text-3xl font-extrabold text-teal-400 text-center mb-6">
           Trade Your Old Bike
